@@ -13,7 +13,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Summit Spot",
   description: "Summit Spot is the best place to find your next event.",
-  icons: { icon: "/assets/light.png" },
+  icons: { icon: "/light.png" },
 };
 
 export default function RootLayout({

@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <header className="w-full border-b">
       <div className="wrapper flex items-center justify-between">
-        <Link href="/" className="w-36 ml-1">
+        <Link href="/" className="w-36">
           <Logo />
         </Link>
 
@@ -19,7 +19,7 @@ const Header = () => {
           </nav>
         </SignedIn>
 
-        <div className="flex w-32 justify-end gap-3 mr-1">
+        <div className="flex w-32 justify-end gap-3">
           <SignedIn>
             <UserButton afterSignOutUrl="/" />
             <NavMobile />

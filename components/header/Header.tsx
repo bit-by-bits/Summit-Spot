@@ -1,16 +1,16 @@
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import Navbar from "./Navbar";
 import NavMobile from "./NavMobile";
+import Logo from "../shared/Logo";
 
 const Header = () => {
   return (
     <header className="w-full border-b">
       <div className="wrapper flex items-center justify-between">
         <Link href="/" className="w-36 ml-1">
-          <Image src="/light.png" height={40} width={120} alt="Summit Spot" />
+          <Logo />
         </Link>
 
         <SignedIn>

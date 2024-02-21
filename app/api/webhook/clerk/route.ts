@@ -11,10 +11,10 @@ export async function POST(req: Request) {
     console.log("SECRET", SECRET);
     if (!SECRET) throw new Error("Secret is missing.");
 
-    const PAYLOAD = headers(req);
-    const SVIX_ID = PAYLOAD.get("svix-id");
-    const SVIX_TIME = PAYLOAD.get("svix-timestamp");
-    const SVIX_SIGN = PAYLOAD.get("svix-signature");
+    const HEADERS = headers();
+    const SVIX_ID = HEADERS.get("svix-id");
+    const SVIX_TIME = HEADERS.get("svix-timestamp");
+    const SVIX_SIGN = HEADERS.get("svix-signature");
 
     console.log("SVIX_ID", SVIX_ID);
     console.log("SVIX_TIME", SVIX_TIME);
@@ -22,8 +22,8 @@ export async function POST(req: Request) {
     if (!SVIX_ID || !SVIX_TIME || !SVIX_SIGN)
       return new Response("Error occurred -- no svix headers", { status: 400 });
 
-    const REQ_PAYLOAD = await req.json();
-    const BODY = JSON.stringify(REQ_PAYLOAD);
+    const PAYLOAD = await req.json();
+    const BODY = JSON.stringify(PAYLOAD);
 
     let EVENT: WebhookEvent;
     const WHOOK = new Webhook(SECRET);

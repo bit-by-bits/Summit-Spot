@@ -6,7 +6,7 @@ import { clerkClient } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const SECRET = process.env.WEBHOOK_SECRET;
+  const SECRET = process.env.NEXT_CLERK_WEBHOOK_SECRET;
 
   console.log("SECRET", SECRET);
   if (!SECRET) throw new Error("Secret is missing.");

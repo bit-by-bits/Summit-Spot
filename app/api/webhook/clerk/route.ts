@@ -8,6 +8,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   const SECRET = process.env.WEBHOOK_SECRET;
 
+  console.log("SECRET", SECRET);
   if (!SECRET) throw new Error("Secret is missing.");
 
   const PAYLOAD = headers();
@@ -16,17 +17,20 @@ export async function POST(req: Request) {
   const SVIX_TIME = PAYLOAD.get("svix-timestamp");
   const SVIX_SIGN = PAYLOAD.get("svix-signature");
 
+  console.log("SVIX_ID", SVIX_ID);
+  console.log("SVIX_TIME", SVIX_TIME);
+  console.log("SVIX_SIGN", SVIX_SIGN);
   if (!SVIX_ID || !SVIX_TIME || !SVIX_SIGN)
     return new Response("Error occured -- no svix headers", { status: 400 });
 
-  const payload = await req.json();
-  const body = JSON.stringify(payload);
+  const REQ_PAYLOAD = await req.json();
+  const BODY = JSON.stringify(REQ_PAYLOAD);
 
   let EVENT: WebhookEvent;
-  const wh = new Webhook(SECRET);
+  const WHOOK = new Webhook(SECRET);
 
   try {
-    EVENT = wh.verify(body, {
+    EVENT = WHOOK.verify(BODY, {
       "svix-id": SVIX_ID,
       "svix-timestamp": SVIX_TIME,
       "svix-signature": SVIX_SIGN,
@@ -38,6 +42,8 @@ export async function POST(req: Request) {
 
   const eventType = EVENT.type;
 
+  console.log("EVENT", EVENT);
+  console.log("eventType", eventType);
   if (eventType === "user.created") {
     const { id, email_addresses, image_url, first_name, last_name, username } =
       EVENT.data;
